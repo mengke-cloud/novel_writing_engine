@@ -2,6 +2,59 @@
 
 
 
+\## 0. 工作流入口
+
+适用阶段：
+
+```text
+retention
+revision 后检查追读
+archive 前最终检查
+```
+
+对应 Agent：
+
+```text
+agents/reader-reviewer.md
+```
+
+必读文件：
+
+```text
+modules/README.md
+modules/00_state_management.md
+.agent/status.md
+story.md
+settings/genre-setting.md
+memory/plot-memory.md
+memory/foreshadowing-memory.md
+memory/unresolved-threads.md
+memory/reader-feedback.md
+```
+
+输出结果：
+
+```text
+读者视角评价
+追读风险
+爽点/疲劳点检查
+章尾钩子检查
+修改建议
+reader-feedback 更新建议
+```
+
+禁止事项：
+
+```text
+不得直接改正文
+不得替代作者做最终取舍
+不得直接写入 memory/reader-feedback.md
+```
+
+\---
+
+
+
 \## 1. 模块定位
 
 

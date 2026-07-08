@@ -2,6 +2,64 @@
 
 
 
+\## 0. 工作流入口
+
+适用阶段：
+
+```text
+chapter
+draft 缺少章节细纲时回退
+revision 需要重做章节结构时回退
+```
+
+对应 Agent：
+
+```text
+agents/chapter-planner.md
+```
+
+必读文件：
+
+```text
+modules/README.md
+modules/00_state_management.md
+modules/07_reader_retention.md
+.agent/status.md
+story.md
+settings/world-setting.md
+settings/writing-style.md
+memory/character-memory.md
+memory/plot-memory.md
+memory/foreshadowing-memory.md
+memory/unresolved-threads.md
+memory/reader-feedback.md
+```
+
+输出结果：
+
+```text
+章节目标
+场景顺序
+本章冲突
+信息增量
+爽点/虐点/反转
+章尾追读
+交给 writer 的正文输入
+交给 updater 的状态更新建议
+```
+
+禁止事项：
+
+```text
+不得在缺少章节目标时进入 draft
+不得直接写正文
+不得直接写入 .agent/status.md
+```
+
+\---
+
+
+
 \## 1. 模块定位
 
 

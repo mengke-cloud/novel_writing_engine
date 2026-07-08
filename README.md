@@ -129,7 +129,7 @@
 
 ## 项目初始化与检测
 
-本 Skill 从 `0.6.0` 开始具备第一批多 Agent 分工能力。
+本 Skill 从 `0.7.0` 开始具备模块工作流规范能力。
 
 检测当前目录是否为小说项目：
 
@@ -625,6 +625,7 @@ novel_writing_engine/
 │   ├── worldbuilder.md
 │   └── writer.md
 ├── modules/
+│   ├── README.md
 │   ├── 00_state_management.md
 │   ├── 01_worldbuilding.md
 │   ├── 02_outline.md
@@ -679,7 +680,7 @@ novel_writing_engine/
 
 ```text
 
-version: 0.6.0
+version: 0.7.0
 
 ```
 
@@ -706,6 +707,8 @@ version: 0.6.0
 \* 状态文件缺字段修复
 
 \* 第一批多 Agent 分工
+
+\* 模块工作流入口规范
 
 \* 大纲设计
 

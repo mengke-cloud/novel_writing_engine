@@ -2,6 +2,55 @@
 
 
 
+\## 0. 工作流入口
+
+适用阶段：
+
+```text
+draft
+revision
+用户明确要求去 AI 味
+writer 输出正文后
+revision-editor 输出改稿后
+```
+
+对应 Agent：
+
+```text
+agents/anti-ai-editor.md
+```
+
+必读文件：
+
+```text
+modules/README.md
+modules/00_state_management.md
+.agent/status.md
+settings/writing-style.md
+memory/style-memory.md
+```
+
+输出结果：
+
+```text
+自然化版本
+去 AI 味处理摘要
+保留剧情说明
+风险提醒
+```
+
+禁止事项：
+
+```text
+不得改变剧情、人物关系、世界观规则、主角目标和关键反转
+不得把文字改得更华丽但失去推进
+不得直接写入项目文件
+```
+
+\---
+
+
+
 \## 1. 模块定位
 
 
