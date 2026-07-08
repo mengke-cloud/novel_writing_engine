@@ -105,15 +105,29 @@ last_task
 
 ```text
 状态规范 -> modules/00_state_management.md
-setup -> modules/01_worldbuilding.md + modules/03_character.md
-outline -> modules/02_outline.md
-volume -> modules/02_outline.md
-chapter -> modules/04_chapter_design.md
-draft -> modules/05_prose_writing.md + modules/08_anti_ai_style.md
-revision -> modules/06_revision.md + modules/08_anti_ai_style.md
-retention -> modules/07_reader_retention.md
-archive -> 更新 .agent/status.md 与 memory/
+setup -> agents/worldbuilder.md + agents/character-designer.md
+outline -> agents/outline-planner.md
+volume -> agents/outline-planner.md
+chapter -> agents/chapter-planner.md
+draft -> agents/writer.md
+revision -> agents/revision-editor.md + agents/anti-ai-editor.md
+retention -> agents/reader-reviewer.md
+archive -> agents/updater.md 更新 .agent/status.md 与 memory/
 paused -> 询问用户恢复目标或下一步动作
+```
+
+各 agent 必须读取对应 `modules/` 作为规则依据：
+
+```text
+worldbuilder -> modules/01_worldbuilding.md
+character-designer -> modules/03_character.md
+outline-planner -> modules/02_outline.md
+chapter-planner -> modules/04_chapter_design.md + modules/07_reader_retention.md
+writer -> modules/05_prose_writing.md + modules/08_anti_ai_style.md
+revision-editor -> modules/06_revision.md + modules/08_anti_ai_style.md
+anti-ai-editor -> modules/08_anti_ai_style.md
+reader-reviewer -> modules/07_reader_retention.md
+updater -> modules/00_state_management.md
 ```
 
 ## 阶段进入条件
@@ -171,22 +185,38 @@ paused:
 
 ## 写入边界
 
-`novel-agent` 可以提出写入计划，但写入前必须明确：
+`novel-agent` 不直接写入 `.agent/status.md`、`settings/` 或 `memory/`。
+
+需要更新项目文件时，`novel-agent` 必须生成更新指令，并交给 `agents/updater.md` 执行。
+
+更新指令必须包含：
 
 ```text
 更新对象
 更新原因
-更新摘要
+更新内容
+是否用户已确认
+影响范围
 ```
 
-在拆出 `updater.md` 之前，`novel-agent` 可以执行状态文件和记忆文件的小范围更新。
+如果缺少更新对象或更新内容，不得调用 `updater`。
 
-后续拆出 `updater.md` 后：
+职责边界：
 
 ```text
 novel-agent -> 只负责调度和生成更新指令
-updater -> 负责写入 .agent/status.md、settings/、memory/
+worldbuilder -> 世界观与规则草案
+character-designer -> 人物与关系草案
+outline-planner -> 主线与分卷规划
+chapter-planner -> 章节细纲
+writer -> 正文草稿
+revision-editor -> 改稿
+anti-ai-editor -> 去 AI 味
+reader-reviewer -> 追读检查
+updater -> 写入 .agent/status.md、settings/、memory/
 ```
+
+正文草稿由 `writer` 输出，但暂不自动归档。章节细纲由 `chapter-planner` 输出，主线与分卷规划由 `outline-planner` 输出。需要写入状态、设定或记忆时，统一交给 `updater`。
 
 ## 强制规则
 

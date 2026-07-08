@@ -129,7 +129,7 @@
 
 ## 项目初始化与检测
 
-本 Skill 从 `0.5.0` 开始具备更完整的项目状态系统能力。
+本 Skill 从 `0.6.0` 开始具备第一批多 Agent 分工能力。
 
 检测当前目录是否为小说项目：
 
@@ -189,6 +189,42 @@ memory/reader-feedback.md
 如果目标目录已经存在 `story.md` 或 `.agent/status.md`，初始化脚本默认拒绝覆盖。只有明确传入 `--force` 时，才会覆盖模板管理的文件。
 
 初始化完成后，后续任务由 `agents/novel-agent.md` 作为总调度入口。
+
+当前 Agent 职责：
+
+```text
+agents/novel-agent.md
+  第一层总调度入口，负责检测项目、读取状态、判断 phase、选择模块、生成更新指令。
+
+agents/worldbuilder.md
+  世界观与规则 agent。
+
+agents/character-designer.md
+  人物与关系 agent。
+
+agents/outline-planner.md
+  主线大纲与分卷规划 agent。
+
+agents/chapter-planner.md
+  章节细纲与章尾钩子 agent。
+
+agents/writer.md
+  正文生成、续写、扩写 agent。
+
+agents/revision-editor.md
+  改稿与结构修复 agent。
+
+agents/anti-ai-editor.md
+  去 AI 味与自然化 agent。
+
+agents/reader-reviewer.md
+  追读、爽点、疲劳点检查 agent。
+
+agents/updater.md
+  项目文件更新 agent，负责写入 .agent/status.md、settings/、memory/。
+```
+
+`novel-agent` 不直接写状态、设定或记忆文件；需要写入时，必须生成更新指令并交给 `updater` 执行。
 
 
 
@@ -577,8 +613,17 @@ novel_writing_engine/
 ├── CHANGELOG.md
 ├── UPDATE_PROTOCOL.md
 ├── agents/
+│   ├── anti-ai-editor.md
+│   ├── character-designer.md
+│   ├── chapter-planner.md
 │   ├── novel-agent.md
-│   └── openai.yaml
+│   ├── openai.yaml
+│   ├── outline-planner.md
+│   ├── reader-reviewer.md
+│   ├── revision-editor.md
+│   ├── updater.md
+│   ├── worldbuilder.md
+│   └── writer.md
 ├── modules/
 │   ├── 00_state_management.md
 │   ├── 01_worldbuilding.md
@@ -634,7 +679,7 @@ novel_writing_engine/
 
 ```text
 
-version: 0.5.0
+version: 0.6.0
 
 ```
 
@@ -659,6 +704,8 @@ version: 0.5.0
 \* 状态系统规范模块
 
 \* 状态文件缺字段修复
+
+\* 第一批多 Agent 分工
 
 \* 大纲设计
 
