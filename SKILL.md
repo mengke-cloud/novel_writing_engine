@@ -5,7 +5,7 @@ description: 工程化中文小说写作与项目管理 Skill。Use when the use
 
 # Novel Writing Engine
 
-当前版本：0.5.0
+当前版本：0.6.0
 
 ## 0. 项目系统入口
 
@@ -102,6 +102,77 @@ last_task
 如果 `phase` 与 `current_phase` 同时存在但不一致，以 `phase` 为准，并将状态文件列为待修复。
 
 `agents/novel-agent.md` 是第一层总调度入口。所有继续写作、阶段推进、文件更新和模块调用，都必须先经过该入口判断。
+
+## 0A. Agent 调度边界
+
+当前已拆分的 agent：
+
+```text
+agents/novel-agent.md
+  第一层总调度入口。负责检测项目、读取状态、判断 phase、选择模块、生成更新指令。
+
+agents/worldbuilder.md
+  世界观与规则 agent。负责世界观草案、世界规则检查和待确认设定清单。
+
+agents/character-designer.md
+  人物 agent。负责人物设定、人物关系、动机、成长线和人物逻辑检查。
+
+agents/outline-planner.md
+  大纲 agent。负责主线大纲、分卷规划、关键转折和冲突升级。
+
+agents/chapter-planner.md
+  章节 agent。负责章节细纲、单章目标、冲突、信息增量和章尾钩子。
+
+agents/writer.md
+  正文 agent。负责正文生成、续写、扩写和场景补写。
+
+agents/revision-editor.md
+  改稿 agent。负责结构修复、节奏压缩、逻辑修复和语言润色。
+
+agents/anti-ai-editor.md
+  去 AI 味 agent。负责正文自然化、去模板化、对白自然化和段落节奏调整。
+
+agents/reader-reviewer.md
+  读者视角 agent。负责追读、爽点密度、疲劳点和章尾钩子检查。
+
+agents/updater.md
+  项目文件更新 agent。负责写入 .agent/status.md、settings/、memory/。
+```
+
+阶段调度：
+
+```text
+setup -> worldbuilder + character-designer
+outline -> outline-planner
+volume -> outline-planner
+chapter -> chapter-planner
+draft -> writer
+revision -> revision-editor + anti-ai-editor
+retention -> reader-reviewer
+archive -> updater
+paused -> novel-agent 询问用户恢复目标或下一步动作
+```
+
+写入边界：
+
+```text
+novel-agent 不直接写入 .agent/status.md、settings/ 或 memory/。
+需要更新项目状态、设定或记忆时，novel-agent 必须生成更新指令，并交给 updater 执行。
+```
+
+更新指令必须包含：
+
+```text
+更新对象：
+更新原因：
+更新内容：
+是否用户已确认：
+影响范围：
+```
+
+`updater` 不得写正文、不得设计剧情、不得自行生成关键设定、不得替用户确认设定。
+
+`updater` 的可写范围和禁止写入范围，以 `agents/updater.md` 为准。
 
 如果 `SKILL.md`、`agents/novel-agent.md` 与 `modules/00_state_management.md` 在状态系统规则上存在冲突，以 `modules/00_state_management.md` 为准。
 

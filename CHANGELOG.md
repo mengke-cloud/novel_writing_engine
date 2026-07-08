@@ -39,6 +39,48 @@
 \---
 
 
+## [0.6.0] - 2026-07-08
+
+### Added
+
+* 新增项目文件更新 agent：`agents/updater.md`。
+* 新增世界观 agent：`agents/worldbuilder.md`。
+* 新增人物 agent：`agents/character-designer.md`。
+* 新增大纲 agent：`agents/outline-planner.md`。
+* 新增章节 agent：`agents/chapter-planner.md`。
+* 新增正文写作 agent：`agents/writer.md`。
+* 新增改稿 agent：`agents/revision-editor.md`。
+* 新增去 AI 味 agent：`agents/anti-ai-editor.md`。
+* 新增读者视角 agent：`agents/reader-reviewer.md`。
+* `agents/updater.md` 定义状态、设定和记忆文件的可写范围与禁止写入范围。
+* `agents/updater.md` 定义更新指令格式：更新对象、更新原因、更新内容、是否用户已确认、影响范围。
+* `agents/updater.md` 新增状态更新、设定更新、记忆更新和修复任务规则。
+
+### Changed
+
+* `agents/novel-agent.md` 不再直接写入 `.agent/status.md`、`settings/` 或 `memory/`。
+* `agents/novel-agent.md` 需要更新项目文件时，必须生成更新指令并交给 `agents/updater.md` 执行。
+* `agents/novel-agent.md` 的阶段调度改为多 agent 调度：`setup -> worldbuilder + character-designer`，`outline/volume -> outline-planner`，`chapter -> chapter-planner`，`draft -> writer`，`revision -> revision-editor + anti-ai-editor`，`retention -> reader-reviewer`，`archive -> updater`。
+* `SKILL.md` 新增 Agent 调度边界，明确 `novel-agent` 与 `updater` 的职责划分。
+* `SKILL.md` 和 `README.md` 新增第一批多 Agent 职责说明。
+* 当前版本提升为 `0.6.0`。
+
+### Reason
+
+* 进入第 3 阶段多 Agent 拆分，先拆出最基础的写入职责，避免总调度入口同时承担决策和文件更新。
+* 为后续自动归档、同步升级和更完整的多 Agent 协作建立职责边界模式。
+
+### Impact
+
+* 状态、设定和记忆写入职责从 `novel-agent` 转移到 `updater`。
+* 未确认设定只能通过 `updater` 写入待确认区域，不得进入已确认区域。
+* 正文、章节、分卷、改稿、去 AI 味和追读检查已有对应 agent 承接。
+* 归档写入暂未自动化，仍需后续阶段继续增强。
+
+
+\---
+
+
 ## [0.5.0] - 2026-07-08
 
 ### Added
