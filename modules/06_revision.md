@@ -2,6 +2,59 @@
 
 
 
+\## 0. 工作流入口
+
+适用阶段：
+
+```text
+revision
+retention 回退到 revision
+draft 用户要求改稿
+```
+
+对应 Agent：
+
+```text
+agents/revision-editor.md
+```
+
+必读文件：
+
+```text
+modules/README.md
+modules/00_state_management.md
+modules/08_anti_ai_style.md
+.agent/status.md
+story.md
+settings/world-setting.md
+settings/writing-style.md
+memory/character-memory.md
+memory/plot-memory.md
+memory/style-memory.md
+```
+
+输出结果：
+
+```text
+改稿版本
+修改摘要
+保留内容
+风险说明
+状态/记忆更新建议
+```
+
+禁止事项：
+
+```text
+不得擅自改变剧情事实、人物关系、世界规则、主角目标
+不得直接写入 .agent/status.md、settings/ 或 memory/
+不得归档章节
+```
+
+\---
+
+
+
 \## 1. 模块定位
 
 

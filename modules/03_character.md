@@ -2,6 +2,59 @@
 
 
 
+\## 0. 工作流入口
+
+适用阶段：
+
+```text
+setup
+outline
+chapter 发现人物动机不足
+draft 发现人物反应不成立
+revision 发现人物逻辑冲突
+```
+
+对应 Agent：
+
+```text
+agents/character-designer.md
+```
+
+必读文件：
+
+```text
+modules/README.md
+modules/00_state_management.md
+.agent/status.md
+story.md
+settings/world-setting.md
+settings/genre-setting.md
+memory/character-memory.md
+memory/plot-memory.md
+```
+
+输出结果：
+
+```text
+人物设定草案
+人物关系草案
+人物动机检查
+人物变化建议
+交给 updater 的更新建议
+```
+
+禁止事项：
+
+```text
+不得擅自改变已确认人物关系
+不得替 writer 写正文
+不得直接写入 .agent/status.md、settings/ 或 memory/
+```
+
+\---
+
+
+
 \## 1. 模块定位
 
 

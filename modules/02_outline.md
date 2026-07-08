@@ -2,6 +2,63 @@
 
 
 
+\## 0. 工作流入口
+
+适用阶段：
+
+```text
+outline
+volume
+chapter 回退到 outline
+revision 发现结构问题
+```
+
+对应 Agent：
+
+```text
+agents/outline-planner.md
+```
+
+必读文件：
+
+```text
+modules/README.md
+modules/00_state_management.md
+.agent/status.md
+story.md
+settings/world-setting.md
+settings/genre-setting.md
+settings/writing-style.md
+memory/world-memory.md
+memory/character-memory.md
+memory/plot-memory.md
+memory/unresolved-threads.md
+```
+
+输出结果：
+
+```text
+主线大纲
+分卷规划
+关键节点表
+冲突升级表
+待确认主线问题
+交给 updater 的更新建议
+```
+
+禁止事项：
+
+```text
+不得在世界观未确认时生成正式大纲
+不得把待确认主线写成正式事实
+不得直接写正文
+不得直接写入 .agent/status.md、settings/ 或 memory/
+```
+
+\---
+
+
+
 \## 1. 模块定位
 
 

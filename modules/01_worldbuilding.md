@@ -2,6 +2,91 @@
 
 
 
+\## 0. 工作流入口
+
+
+
+适用阶段：
+
+
+
+```text
+
+setup
+outline 回退到 setup
+chapter 发现世界规则不足
+draft 发现世界规则冲突
+
+```
+
+
+
+对应 Agent：
+
+
+
+```text
+
+agents/worldbuilder.md
+
+```
+
+
+
+必读文件：
+
+
+
+```text
+
+modules/README.md
+modules/00_state_management.md
+.agent/status.md
+story.md
+settings/world-setting.md
+settings/genre-setting.md
+memory/world-memory.md
+memory/plot-memory.md
+
+```
+
+
+
+输出结果：
+
+
+
+```text
+
+世界观草案
+世界规则检查
+待确认设定清单
+已确认设定整理建议
+交给 updater 的更新建议
+
+```
+
+
+
+禁止事项：
+
+
+
+```text
+
+不得直接写正文
+不得把待确认设定写成正式事实
+不得直接写入 .agent/status.md、settings/ 或 memory/
+不得一次性锁死全部世界观
+
+```
+
+
+
+\---
+
+
+
 \## 1. 模块定位
 
 

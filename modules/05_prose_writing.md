@@ -2,6 +2,62 @@
 
 
 
+\## 0. 工作流入口
+
+适用阶段：
+
+```text
+draft
+```
+
+对应 Agent：
+
+```text
+agents/writer.md
+```
+
+必读文件：
+
+```text
+modules/README.md
+modules/00_state_management.md
+modules/08_anti_ai_style.md
+.agent/status.md
+story.md
+settings/world-setting.md
+settings/genre-setting.md
+settings/writing-style.md
+memory/world-memory.md
+memory/character-memory.md
+memory/plot-memory.md
+memory/style-memory.md
+memory/foreshadowing-memory.md
+memory/unresolved-threads.md
+```
+
+输出结果：
+
+```text
+正文草稿
+续写片段
+扩写片段
+写后检查
+状态/记忆更新建议
+```
+
+禁止事项：
+
+```text
+不得绕过章节细纲直接写正式正文
+不得把未确认设定写成正式事实
+不得直接写入 .agent/status.md、settings/ 或 memory/
+不得归档章节
+```
+
+\---
+
+
+
 \## 1. 模块定位
 
 
