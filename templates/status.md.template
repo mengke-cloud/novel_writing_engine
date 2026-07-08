@@ -14,11 +14,17 @@ last_task: initialized
 next_action: 与用户确认题材、世界观、主角目标、核心卖点和写作风格。
 blocked_reason:
 
+## 状态规范
+
+```text
+状态字段、阶段枚举、阶段流转、修复规则和汇报格式，以 modules/00_state_management.md 为准。
+```
+
 ## 阶段说明
 
 ```text
 setup = 设定确认
-outline = 大纲与卷纲
+outline = 主线大纲
 volume = 分卷规划
 chapter = 章节设计
 draft = 正文生成
@@ -68,4 +74,16 @@ initialized
 
 ```text
 与用户确认题材、世界观、主角目标、核心卖点和写作风格。
+```
+
+## 状态汇报格式
+
+```text
+当前阶段：
+判断依据：
+当前任务：
+下一步动作：
+需要确认：
+将读取文件：
+将更新文件：
 ```

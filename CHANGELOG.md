@@ -39,6 +39,45 @@
 \---
 
 
+## [0.5.0] - 2026-07-08
+
+### Added
+
+* 新增状态系统规范模块：`modules/00_state_management.md`。
+* `modules/00_state_management.md` 定义 `.agent/status.md` 必备字段、`phase` 合法枚举、阶段进入条件、阶段流转规则、回退规则和禁止跳步规则。
+* `modules/00_state_management.md` 新增状态更新条件、记忆更新条件、`needs_repair` 修复规则和状态汇报输出格式。
+* 新增状态修复脚本：`scripts/repair_status.py`。
+* `scripts/repair_status.py` 支持 `--dry-run`，可预览将补齐的状态字段。
+* `scripts/repair_status.py` 可从旧字段推断新字段，例如 `skill_version -> engine_version`、`current_phase -> phase`、`last_task -> current_task`。
+
+### Changed
+
+* `agents/novel-agent.md` 接入 `modules/00_state_management.md`，状态判断、阶段流转和修复规则以状态管理模块为准。
+* `SKILL.md` 接入 `modules/00_state_management.md`，将其列为项目系统入口的一部分。
+* `templates/status.md.template` 对齐状态系统规范，新增状态规范说明和状态汇报格式。
+* `scripts/detect_project.py` 的状态字段检查对齐 `modules/00_state_management.md` 的完整必备字段。
+* `README.md` 新增 `scripts/repair_status.py` 用法，并更新当前文件结构。
+
+### Fixed
+
+* 旧版 `.agent/status.md` 缺少新版字段时，可以通过 `scripts/repair_status.py` 补齐基础字段。
+* 修复脚本可正确处理带 UTF-8 BOM 的状态文件标题，补充字段会插入到 `# Agent Status` 后方。
+
+### Reason
+
+* 强化第 2 阶段状态系统，让项目状态不只是一份模板，而是具备规范、检测和修复流程。
+* 为后续多 Agent 拆分、自动归档和长期记忆更新提供稳定状态基础。
+
+### Impact
+
+* `needs_repair` 项目在入口文件存在的情况下，可先尝试状态字段修复。
+* 后续所有阶段调度应以 `modules/00_state_management.md` 和 `.agent/status.md` 为依据。
+* 状态系统更严格：新项目必须包含完整必备字段，旧项目需要修复后再继续写作。
+
+
+\---
+
+
 ## [0.4.0] - 2026-07-08
 
 ### Added

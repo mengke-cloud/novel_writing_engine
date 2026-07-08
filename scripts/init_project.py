@@ -9,7 +9,7 @@ from pathlib import Path
 import sys
 
 
-SKILL_VERSION = "0.4.0"
+SKILL_VERSION = "0.5.0"
 
 DIRECTORIES = [
     "settings/character-setting",

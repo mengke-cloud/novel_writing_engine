@@ -5,7 +5,7 @@ description: 工程化中文小说写作与项目管理 Skill。Use when the use
 
 # Novel Writing Engine
 
-当前版本：0.4.0
+当前版本：0.5.0
 
 ## 0. 项目系统入口
 
@@ -19,7 +19,8 @@ description: 工程化中文小说写作与项目管理 Skill。Use when the use
 3. 如果是 new，先询问用户是否初始化
 4. 用户确认后，使用 scripts/init_project.py 初始化项目骨架
 5. 初始化完成后，确认 story.md、.agent/status.md、settings/、memory/ 已生成
-6. 进入 agents/novel-agent.md 的调度流程
+6. 读取 modules/00_state_management.md，确认状态字段、阶段枚举和流转规则
+7. 进入 agents/novel-agent.md 的调度流程
 ```
 
 检测状态处理规则：
@@ -45,7 +46,9 @@ legacy:
 
 needs_repair:
   story.md 或 .agent/status.md 存在但结构不完整。
-  先修复状态文件或缺失结构，再进入写作流程。
+  如果只是 .agent/status.md 缺少关键字段，先运行 scripts/repair_status.py <project-path> 修复状态字段。
+  如果缺少 story.md、.agent/status.md 或基础目录结构，先提示用户选择修复、补建或重新初始化。
+  修复后必须重新运行 scripts/detect_project.py，结果为 existing 后才能进入写作流程。
 
 partial:
   检测到部分小说项目目录，但缺少完整入口文件。
@@ -68,6 +71,19 @@ partial:
 
 项目状态文件 `.agent/status.md` 是后续调度的唯一状态源，必须保持可读、可更新、可追踪。
 
+状态系统的详细规范以 `modules/00_state_management.md` 为准。该模块负责定义：
+
+```text
+1. .agent/status.md 必备字段
+2. phase 合法枚举
+3. 阶段进入条件
+4. 阶段流转与回退规则
+5. 状态更新条件
+6. 记忆更新条件
+7. needs_repair 修复规则
+8. 状态汇报输出格式
+```
+
 读取阶段时优先使用新版字段：
 
 ```text
@@ -86,6 +102,8 @@ last_task
 如果 `phase` 与 `current_phase` 同时存在但不一致，以 `phase` 为准，并将状态文件列为待修复。
 
 `agents/novel-agent.md` 是第一层总调度入口。所有继续写作、阶段推进、文件更新和模块调用，都必须先经过该入口判断。
+
+如果 `SKILL.md`、`agents/novel-agent.md` 与 `modules/00_state_management.md` 在状态系统规则上存在冲突，以 `modules/00_state_management.md` 为准。
 
 
 
