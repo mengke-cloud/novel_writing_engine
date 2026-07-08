@@ -9,7 +9,7 @@ from pathlib import Path
 import sys
 
 
-SKILL_VERSION = "0.7.0"
+SKILL_VERSION = "0.8.0"
 
 DIRECTORIES = [
     "settings/character-setting",
@@ -27,82 +27,15 @@ TEMPLATE_MAP = {
     "world-setting.md.template": "settings/world-setting.md",
     "genre-setting.md.template": "settings/genre-setting.md",
     "writing-style.md.template": "settings/writing-style.md",
+    "memory-readme.md.template": "memory/README.md",
     "user-preferences.md.template": "memory/user-preferences.md",
-    "character-state.md.template": "memory/character-memory.md",
-    "plot-hooks.md.template": "memory/foreshadowing-memory.md",
-}
-
-STATIC_FILES = {
-    "memory/world-memory.md": """# 世界观记忆
-
-## 已确认世界规则
-
-```text
-暂无。
-```
-
-## 待确认世界规则
-
-```text
-暂无。
-```
-""",
-    "memory/plot-memory.md": """# 剧情记忆
-
-## 已发生事件
-
-```text
-暂无。
-```
-
-## 当前主线进展
-
-```text
-暂无。
-```
-""",
-    "memory/style-memory.md": """# 文风记忆
-
-## 已确认文风
-
-```text
-暂无。
-```
-
-## 禁用表达
-
-```text
-暂无。
-```
-""",
-    "memory/unresolved-threads.md": """# 未解决线索
-
-## 悬念
-
-```text
-暂无。
-```
-
-## 待回收事项
-
-```text
-暂无。
-```
-""",
-    "memory/reader-feedback.md": """# 读者反馈记忆
-
-## 追读风险
-
-```text
-暂无。
-```
-
-## 爽点与疲劳点
-
-```text
-暂无。
-```
-""",
+    "world-memory.md.template": "memory/world-memory.md",
+    "character-memory.md.template": "memory/character-memory.md",
+    "plot-memory.md.template": "memory/plot-memory.md",
+    "style-memory.md.template": "memory/style-memory.md",
+    "foreshadowing-memory.md.template": "memory/foreshadowing-memory.md",
+    "unresolved-threads.md.template": "memory/unresolved-threads.md",
+    "reader-feedback.md.template": "memory/reader-feedback.md",
 }
 
 
@@ -126,14 +59,6 @@ def write_from_template(template_path: Path, target_path: Path, values: dict[str
     target_path.parent.mkdir(parents=True, exist_ok=True)
     template_text = template_path.read_text(encoding="utf-8")
     target_path.write_text(render_template(template_text, values), encoding="utf-8", newline="\n")
-    return f"written: {target_path}"
-
-
-def write_static_file(target_path: Path, text: str, force: bool) -> str:
-    if target_path.exists() and not force:
-        return f"skipped existing: {target_path}"
-    target_path.parent.mkdir(parents=True, exist_ok=True)
-    target_path.write_text(text, encoding="utf-8", newline="\n")
     return f"written: {target_path}"
 
 
@@ -181,7 +106,7 @@ def main() -> int:
         "genre": args.genre,
     }
 
-    planned_files = list(TEMPLATE_MAP.values()) + list(STATIC_FILES)
+    planned_files = list(TEMPLATE_MAP.values())
 
     print(f"target project: {project_root}")
     print("directories to ensure:")
@@ -207,9 +132,6 @@ def main() -> int:
             print(f"missing template: {template_path}", file=sys.stderr)
             return 3
         results.append(write_from_template(template_path, project_root / target_name, values, args.force))
-    for target_name, text in STATIC_FILES.items():
-        results.append(write_static_file(project_root / target_name, text, args.force))
-
     print("\n".join(results))
     print(f"initialized novel project: {project_root}")
     return 0

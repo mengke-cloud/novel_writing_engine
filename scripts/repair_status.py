@@ -10,7 +10,7 @@ import re
 import sys
 
 
-ENGINE_VERSION = "0.7.0"
+ENGINE_VERSION = "0.8.0"
 
 REQUIRED_FIELDS = [
     "project_name",

@@ -5,7 +5,7 @@ description: 工程化中文小说写作与项目管理 Skill。Use when the use
 
 # Novel Writing Engine
 
-当前版本：0.7.0
+当前版本：0.8.0
 
 ## 0. 项目系统入口
 

@@ -129,7 +129,7 @@
 
 ## 项目初始化与检测
 
-本 Skill 从 `0.7.0` 开始具备模块工作流规范能力。
+本 Skill 从 `0.8.0` 开始具备标准化长期记忆系统。
 
 检测当前目录是否为小说项目：
 
@@ -173,6 +173,7 @@ chapters/
 drafts/
 archives/
 memory/
+memory/README.md
 memory/world-memory.md
 memory/character-memory.md
 memory/plot-memory.md
@@ -646,6 +647,14 @@ novel_writing_engine/
 │   ├── genre-setting.md.template
 │   ├── writing-style.md.template
 │   ├── user-preferences.md.template
+│   ├── memory-readme.md.template
+│   ├── world-memory.md.template
+│   ├── character-memory.md.template
+│   ├── plot-memory.md.template
+│   ├── style-memory.md.template
+│   ├── foreshadowing-memory.md.template
+│   ├── unresolved-threads.md.template
+│   ├── reader-feedback.md.template
 │   ├── character-state.md.template
 │   └── plot-hooks.md.template
 ├── 初始化项目后生成：
@@ -656,6 +665,7 @@ novel_writing_engine/
 │   ├── drafts/
 │   ├── archives/
 │   ├── memory/
+│   │   ├── README.md
 │   │   ├── world-memory.md
 │   │   ├── character-memory.md
 │   │   ├── plot-memory.md
@@ -680,7 +690,7 @@ novel_writing_engine/
 
 ```text
 
-version: 0.7.0
+version: 0.8.0
 
 ```
 
@@ -709,6 +719,8 @@ version: 0.7.0
 \* 第一批多 Agent 分工
 
 \* 模块工作流入口规范
+
+\* 标准化长期记忆系统
 
 \* 大纲设计
 

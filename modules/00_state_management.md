@@ -33,6 +33,7 @@ memory/style-memory.md
 memory/foreshadowing-memory.md
 memory/unresolved-threads.md
 memory/reader-feedback.md
+memory/README.md
 ```
 
 如果部分文件缺失，不得假装已经读取。必须先标记为项目结构缺失，并进入修复流程。
@@ -300,6 +301,7 @@ next_action
 5. 新增或回收伏笔 -> memory/foreshadowing-memory.md
 6. 新增悬念或待解决线索 -> memory/unresolved-threads.md
 7. 出现追读风险、爽点不足或疲劳点 -> memory/reader-feedback.md
+8. 记忆写入格式或职责不清 -> memory/README.md
 ```
 
 禁止只在聊天中记住这些信息。凡是影响后续创作的内容，都必须写入项目文件。

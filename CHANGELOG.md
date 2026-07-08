@@ -39,6 +39,35 @@
 \---
 
 
+## [0.8.0] - 2026-07-08
+
+### Added
+
+* 新增标准长期记忆模板：`world-memory.md.template`、`character-memory.md.template`、`plot-memory.md.template`、`style-memory.md.template`、`foreshadowing-memory.md.template`、`unresolved-threads.md.template`、`reader-feedback.md.template`。
+* 新增 `memory-readme.md.template`，用于生成小说项目内的 `memory/README.md`。
+* `memory/README.md` 定义记忆文件职责、更新原则和标准记忆条目格式。
+
+### Changed
+
+* `scripts/init_project.py` 不再使用内置静态字符串生成记忆文件，全部改为从 `templates/` 复制标准模板。
+* `agents/updater.md` 更新记忆写入规则，要求读取 `memory/README.md`，并使用固定确认状态。
+* `modules/00_state_management.md` 将 `memory/README.md` 纳入记忆系统规则。
+* `README.md` 更新记忆系统文件结构和当前版本说明。
+* 当前版本提升为 `0.8.0`。
+
+### Reason
+
+* 将第 5 阶段记忆系统从占位文件升级为可持续迭代的长期记忆结构。
+
+### Impact
+
+* 新初始化项目会生成标准化 `memory/README.md` 和完整记忆文件模板。
+* 后续写作、改稿、追读和归档都可以按照统一记忆条目格式更新长期记忆。
+
+
+\---
+
+
 ## [0.7.0] - 2026-07-08
 
 ### Added
