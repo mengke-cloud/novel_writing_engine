@@ -26,14 +26,20 @@ SKILL_ROOT_MARKERS = [
     "templates",
 ]
 
-REQUIRED_STATUS_FIELD_GROUPS = [
-    ("project_name:",),
-    ("engine_version:", "skill_version:"),
-    ("phase:", "current_phase:"),
-    ("current_volume:",),
-    ("current_chapter:",),
-    ("current_task:", "last_task:"),
-    ("next_action:",),
+REQUIRED_STATUS_FIELDS = [
+    "project_name:",
+    "engine_version:",
+    "skill_version:",
+    "created_at:",
+    "updated_at:",
+    "phase:",
+    "current_phase:",
+    "current_volume:",
+    "current_chapter:",
+    "current_task:",
+    "last_task:",
+    "next_action:",
+    "blocked_reason:",
 ]
 
 
@@ -43,14 +49,10 @@ def is_skill_root(project_root: Path) -> bool:
 
 def missing_status_fields(status_path: Path) -> list[str]:
     if not status_path.exists():
-        return ["/".join(group) for group in REQUIRED_STATUS_FIELD_GROUPS]
+        return REQUIRED_STATUS_FIELDS
 
     text = status_path.read_text(encoding="utf-8", errors="replace")
-    missing: list[str] = []
-    for group in REQUIRED_STATUS_FIELD_GROUPS:
-        if not any(field in text for field in group):
-            missing.append("/".join(group))
-    return missing
+    return [field for field in REQUIRED_STATUS_FIELDS if field not in text]
 
 
 def detect(project_root: Path) -> dict[str, object]:
