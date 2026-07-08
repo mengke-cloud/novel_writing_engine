@@ -1,0 +1,30 @@
+# 文风记忆
+
+project_name: {{project_name}}
+engine_version: {{skill_version}}
+created_at: {{created_date}}
+
+## 已确认文风
+
+```text
+暂无。
+```
+
+## 禁用表达
+
+```text
+暂无。
+```
+
+## 去 AI 味偏好
+
+```text
+默认中度去 AI 味。
+```
+
+## 更新记录
+
+```text
+暂无。
+```
+

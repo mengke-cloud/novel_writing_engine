@@ -1,0 +1,38 @@
+# memory 使用规范
+
+project_name: {{project_name}}
+engine_version: {{skill_version}}
+created_at: {{created_date}}
+
+## 文件职责
+
+```text
+world-memory.md -> 世界观规则、规则影响范围
+character-memory.md -> 人物状态、人物关系、人物目标与动机
+plot-memory.md -> 已发生事件、主线进展、章节推进记录
+style-memory.md -> 文风偏好、禁用表达、去 AI 味偏好
+foreshadowing-memory.md -> 已埋伏笔、待回收伏笔、已回收伏笔
+unresolved-threads.md -> 悬念、待解决问题、待回收事项
+reader-feedback.md -> 追读风险、爽点疲劳点、章尾钩子反馈
+```
+
+## 更新原则
+
+```text
+1. 影响后续创作的信息必须写入 memory。
+2. 未经用户确认的信息必须标记为【系统待确认】。
+3. 用户已确认的信息标记为【用户已确认】。
+4. 用户否定的信息标记为【不可使用】。
+5. 每次更新必须记录来源、确认状态、影响后续和更新时间。
+```
+
+## 标准记忆条目
+
+```text
+新增内容：
+来源：
+确认状态：
+影响后续：
+更新时间：
+```
+

@@ -1,0 +1,30 @@
+# 未解决线索
+
+project_name: {{project_name}}
+engine_version: {{skill_version}}
+created_at: {{created_date}}
+
+## 悬念
+
+```text
+暂无。
+```
+
+## 待解决问题
+
+```text
+暂无。
+```
+
+## 待回收事项
+
+```text
+暂无。
+```
+
+## 更新记录
+
+```text
+暂无。
+```
+

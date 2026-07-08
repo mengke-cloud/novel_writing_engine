@@ -15,6 +15,7 @@
 ```text
 modules/00_state_management.md
 .agent/status.md
+memory/README.md
 ```
 
 状态字段、阶段枚举、阶段流转、修复规则和记忆更新条件，以 `modules/00_state_management.md` 为准。
@@ -134,6 +135,14 @@ blocked_reason
 确认状态：
 影响后续：
 更新时间：
+```
+
+确认状态只能使用：
+
+```text
+【用户已确认】
+【系统待确认】
+【不可使用】
 ```
 
 ## 修复任务
