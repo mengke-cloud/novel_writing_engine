@@ -1,0 +1,71 @@
+# Agent Status
+
+project_name: {{project_name}}
+engine_version: {{skill_version}}
+skill_version: {{skill_version}}
+created_at: {{created_date}}
+updated_at: {{created_date}}
+phase: setup
+current_phase: setup
+current_volume: 0
+current_chapter: 0
+current_task: confirm_foundation_settings
+last_task: initialized
+next_action: 与用户确认题材、世界观、主角目标、核心卖点和写作风格。
+blocked_reason:
+
+## 阶段说明
+
+```text
+setup = 设定确认
+outline = 大纲与卷纲
+volume = 分卷规划
+chapter = 章节设计
+draft = 正文生成
+revision = 改稿与去 AI 味
+retention = 追读检查
+archive = 归档与记忆更新
+paused = 暂停
+```
+
+## 当前任务
+
+```text
+确认小说基础设定，禁止在用户确认前锁死世界观、人物关系、主线剧情或关键规则。
+```
+
+## 已确认设定
+
+```text
+暂无。
+```
+
+## 待确认设定
+
+```text
+暂无。
+```
+
+## 开放问题
+
+```text
+暂无。
+```
+
+## 活跃线索
+
+```text
+暂无。
+```
+
+## 最近动作
+
+```text
+initialized
+```
+
+## 下一步动作
+
+```text
+与用户确认题材、世界观、主角目标、核心卖点和写作风格。
+```

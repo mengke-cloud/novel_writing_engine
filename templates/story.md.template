@@ -1,0 +1,28 @@
+# {{project_name}}
+
+skill_version: {{skill_version}}
+created_at: {{created_date}}
+genre: {{genre}}
+status: setup
+
+## 项目定位
+
+本文件是小说项目索引。只记录已经确认或需要确认的高层信息，不直接承载正文。
+
+## 已确认设定
+
+```text
+暂无。
+```
+
+## 系统待确认
+
+```text
+暂无。
+```
+
+## 当前目标
+
+```text
+完成世界观、题材、主角目标和第一阶段故事方向确认。
+```

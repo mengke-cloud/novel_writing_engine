@@ -1,18 +1,91 @@
-\---
+---
+name: novel-writing-engine
+description: 工程化中文小说写作与项目管理 Skill。Use when the user explicitly asks for novel-writing-engine, 我的小说写作规则, 中文网文工程化规则, 去 AI 味规则, or needs rule-based worldbuilding, outline, character design, chapter design, prose writing, revision, reader-retention, anti-AI-style polishing, novel project initialization, project status detection, or continuing a novel project without using awesome-novel.
+---
 
+# Novel Writing Engine
 
+当前版本：0.4.0
 
-name: novel\_writing\_engine
+## 0. 项目系统入口
 
-version: 0.1.0
+当用户要求初始化小说项目、检测小说项目状态、继续当前小说项目、创建小说工程目录，或明确要求使用 `novel-writing-engine` 时，先执行项目系统入口判断。
 
-description: 工程化小说写作 Skill，专注于小说世界观、人物设定、大纲设计、章节设计、正文创作、续写、改稿、爽点、追读和长期连载维护。
+默认顺序：
 
-\---------------------------------------------------------------------------
+```text
+1. 使用 scripts/detect_project.py 检测当前目录或用户指定目录
+2. 根据检测状态决定下一步
+3. 如果是 new，先询问用户是否初始化
+4. 用户确认后，使用 scripts/init_project.py 初始化项目骨架
+5. 初始化完成后，确认 story.md、.agent/status.md、settings/、memory/ 已生成
+6. 进入 agents/novel-agent.md 的调度流程
+```
 
+检测状态处理规则：
 
+```text
+skill_root:
+  当前目录是 novel-writing-engine 技能目录。
+  禁止在此目录内初始化小说项目。
+  提醒用户切换到目标小说项目目录。
 
-\# Novel Writing Engine
+existing:
+  读取 story.md、.agent/status.md、settings/、memory/。
+  以 .agent/status.md 的 phase 为准继续调度。
+
+new:
+  当前目录不是小说项目。
+  先询问用户是否初始化。
+  用户确认后运行 scripts/init_project.py。
+
+legacy:
+  检测到旧版 story.yaml 或旧结构。
+  提示需要迁移；迁移能力未启用前，不得擅自删除或覆盖旧文件。
+
+needs_repair:
+  story.md 或 .agent/status.md 存在但结构不完整。
+  先修复状态文件或缺失结构，再进入写作流程。
+
+partial:
+  检测到部分小说项目目录，但缺少完整入口文件。
+  询问用户修复、迁移还是重新初始化。
+```
+
+禁止在 skill 安装目录自身内部初始化小说项目。
+
+初始化脚本只创建项目骨架和空白状态文件，不自动生成未经用户确认的世界观、人物关系、主线剧情或关键设定。
+
+初始化脚本必须：
+
+```text
+1. 初始化前输出将创建的目录和文件清单
+2. 支持 --dry-run 预览
+3. 默认拒绝覆盖已有 story.md 或 .agent/status.md
+4. 生成 settings/、volumes/、chapters/、drafts/、archives/、memory/、.agent/task/
+5. 生成 story.md 与 .agent/status.md
+```
+
+项目状态文件 `.agent/status.md` 是后续调度的唯一状态源，必须保持可读、可更新、可追踪。
+
+读取阶段时优先使用新版字段：
+
+```text
+phase
+current_task
+next_action
+```
+
+兼容旧字段：
+
+```text
+current_phase
+last_task
+```
+
+如果 `phase` 与 `current_phase` 同时存在但不一致，以 `phase` 为准，并将状态文件列为待修复。
+
+`agents/novel-agent.md` 是第一层总调度入口。所有继续写作、阶段推进、文件更新和模块调用，都必须先经过该入口判断。
 
 
 

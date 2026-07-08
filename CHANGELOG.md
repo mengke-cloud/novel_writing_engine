@@ -39,6 +39,81 @@
 \---
 
 
+## [0.4.0] - 2026-07-08
+
+### Added
+
+* `scripts/detect_project.py` 新增 `skill_root` 检测，避免在 Skill 目录内误初始化小说项目。
+* `scripts/detect_project.py` 新增 `.agent/status.md` 关键字段检查。
+* `scripts/detect_project.py` 支持新版字段与旧版字段兼容检测。
+* `scripts/init_project.py` 新增 `--dry-run` 初始化预览。
+* `scripts/init_project.py` 初始化前输出将创建的目录和文件清单。
+* 初始化项目时新增基础记忆文件：`world-memory.md`、`character-memory.md`、`plot-memory.md`、`style-memory.md`、`foreshadowing-memory.md`、`unresolved-threads.md`、`reader-feedback.md`。
+* `templates/status.md.template` 新增 `engine_version`、`phase`、`current_task`、`next_action`、`blocked_reason` 等标准状态字段。
+
+### Changed
+
+* `agents/novel-agent.md` 升级为以 `.agent/status.md` 为唯一状态源的总调度入口。
+* `agents/novel-agent.md` 新增 `phase` 阶段调度表和状态更新规则。
+* `SKILL.md` 项目系统入口与新版检测、初始化、调度流程对齐。
+* `README.md` 更新项目初始化、检测、文件结构和当前版本说明。
+* 当前版本提升为 `0.4.0`。
+
+### Fixed
+
+* 初始化脚本默认拒绝覆盖已有 `story.md` 或 `.agent/status.md`，降低误覆盖用户项目的风险。
+* 检测脚本能识别状态文件缺少关键字段的损坏项目。
+
+### Reason
+
+* 将第一层项目系统从“最小可用”升级为“可稳定落地”的基础能力。
+* 为后续状态系统、多 Agent 拆分、记忆系统和迁移同步能力打基础。
+
+### Impact
+
+* 新初始化项目会带有更完整的目录、状态文件和记忆占位文件。
+* 已有旧版状态字段仍可被检测脚本兼容识别。
+* 后续继续写作应优先通过 `agents/novel-agent.md` 读取 `.agent/status.md` 的 `phase` 进行调度。
+
+
+\---
+
+
+
+## [0.3.0] - 2026-07-08
+
+### Added
+
+* 新增标准 Codex Skill frontmatter：`name: novel-writing-engine`。
+* 新增项目初始化脚本：`scripts/init_project.py`。
+* 新增项目状态检测脚本：`scripts/detect_project.py`。
+* 新增总调度入口：`agents/novel-agent.md`。
+* 新增 UI 元数据：`agents/openai.yaml`。
+* 新增项目模板：`templates/story.md.template`、`templates/status.md.template`、设定模板和记忆模板。
+* 新增 `.agent/status.md` 项目状态文件模板。
+
+### Changed
+
+* Skill 从单纯规则库升级为具备第一层项目系统能力。
+* README 当前版本更新为 `0.3.0`。
+* `SKILL.md` 新增项目系统入口规则。
+
+### Reason
+
+* 用户要求执行第一层能力：标准安装结构、项目初始化、状态检测、总调度 agent、任务状态文件。
+* 为后续多 Agent、迁移、归档和记忆系统打基础。
+
+### Impact
+
+* 可以初始化新的小说项目骨架。
+* 可以检测当前目录是新项目、已有项目、旧版项目、损坏项目或部分项目。
+* 后续可以围绕 `.agent/status.md` 继续迭代多 Agent 调度。
+
+
+
+\---
+
+
 
 ## [0.2.1] - 2026-07-08
 
