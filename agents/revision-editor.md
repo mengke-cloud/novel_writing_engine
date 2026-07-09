@@ -12,6 +12,8 @@
 modules/00_state_management.md
 modules/06_revision.md
 modules/08_anti_ai_style.md
+modules/09_quality_gate.md
+modules/10_continuity.md
 .agent/status.md
 story.md
 settings/world-setting.md
@@ -19,7 +21,14 @@ settings/writing-style.md
 memory/character-memory.md
 memory/plot-memory.md
 memory/style-memory.md
+memory/timeline.md
+memory/character-state-ledger.md
+memory/promise-ledger.md
+knowledge/format-specs/chapter-quality-checklist.md
+knowledge/anti-ai/common-rules.md
 ```
+
+只有检查结果指向具体问题时，才加载对应的 `character-craft/`、`plot-craft/` 或 `scene-craft/` 文件。
 
 ## 适用阶段
 
@@ -36,6 +45,8 @@ draft 用户要求改稿
 修改摘要
 保留内容
 风险说明
+三级质量问题
+质量门禁结果
 状态/记忆更新建议
 ```
 
@@ -45,4 +56,3 @@ draft 用户要求改稿
 2. 不明确要求大改时，默认小修或中修。
 3. 改稿后必须执行去 AI 味检查。
 4. 不得直接写入 `memory/` 或 `.agent/status.md`。
-

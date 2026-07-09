@@ -1,11 +1,11 @@
 ---
 name: novel-writing-engine
-description: 工程化中文小说写作与项目管理 Skill。Use when the user explicitly asks for novel-writing-engine, 我的小说写作规则, 中文网文工程化规则, 去 AI 味规则, or needs rule-based worldbuilding, outline, character design, chapter design, prose writing, revision, reader-retention, anti-AI-style polishing, novel project initialization, project status detection, or continuing a novel project without using awesome-novel.
+description: 工程化中文小说写作与项目管理 Skill。Use when the user explicitly asks for novel-writing-engine, 我的小说写作规则, 中文网文工程化规则, 去 AI 味规则, or needs rule-based worldbuilding, outline, character design, chapter design, prose writing, revision, reader-retention, anti-AI-style polishing, novel project initialization, migration, status detection, analytics, archiving, or continuing a novel project without using awesome-novel.
 ---
 
 # Novel Writing Engine
 
-当前版本：0.8.0
+当前版本：1.0.0
 
 ## 0. 项目系统入口
 
@@ -42,7 +42,8 @@ new:
 
 legacy:
   检测到旧版 story.yaml 或旧结构。
-  提示需要迁移；迁移能力未启用前，不得擅自删除或覆盖旧文件。
+  先运行 scripts/novel.py migrate <project-path> --dry-run。
+  用户确认后正式迁移，并检查 .agent/migration-report.md。
 
 needs_repair:
   story.md 或 .agent/status.md 存在但结构不完整。
@@ -103,7 +104,34 @@ last_task
 
 `agents/novel-agent.md` 是第一层总调度入口。所有继续写作、阶段推进、文件更新和模块调用，都必须先经过该入口判断。
 
-## 0A. Agent 调度边界
+归档前必须执行 `modules/09_quality_gate.md`。调用 `scripts/quality_gate.py --target archive` 后，只有退出码为 `0` 且报告阻断项为零，才允许归档、更新记忆和推进章节。
+
+长篇项目必须维护 `memory/timeline.md`、`memory/character-state-ledger.md` 和 `memory/promise-ledger.md`。章纲、正文、改稿和归档按 `modules/10_continuity.md` 检查一致性；大纲、章纲、追读和归档按 `modules/11_promise_tracking.md` 管理剧情承诺。
+
+每次分派具体 Agent 前，按 `modules/12_context_assembly.md` 运行 `scripts/context_builder.py`，生成带预算和文件清单的 `.agent/task/context.md`。不得以该快照替代原始状态、设定或记忆文件。
+
+归档使用 `modules/13_archive_workflow.md` 和 `scripts/archive_chapter.py`。命令行任务优先通过 `scripts/novel.py` 统一入口调用；统一入口不得绕过底层脚本的确认、覆盖和质量门禁。
+
+引擎文件发生变更后，按 `modules/15_testing.md` 运行 `python scripts/test_engine.py`。完整测试失败时不得发布或提升版本。
+
+旧项目迁移遵守 `modules/16_migration.md`，必须先预览和备份。类型任务先读取 `knowledge/genre-guides/routing.md`，并只加载唯一匹配的类型指南。
+
+数据分析遵守 `modules/17_analytics.md`，不得把启发式指标当作文学评价。发布前遵守 `modules/18_release.md`，运行 `python scripts/novel.py release`，检查失败时不得发布。
+
+## 0A. 知识库入口
+
+`knowledge/` 保存跨项目复用的格式规范、类型经验和创作方法。执行任务时必须先读取 `knowledge/README.md`，再按 Agent 路由选择文件。
+
+```text
+1. 不得一次性加载整个 knowledge/
+2. 先读取当前产物对应的 format-specs/
+3. 人物、情节和场景知识只在任务需要时加载
+4. 类型知识先经过 genre-guides/routing.md 匹配
+5. 项目记忆优先于知识建议
+6. project_rules/ 优先于 knowledge/
+```
+
+## 0B. Agent 调度边界
 
 当前已拆分的 agent：
 

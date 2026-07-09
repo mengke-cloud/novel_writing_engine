@@ -17,7 +17,11 @@ settings/world-setting.md
 settings/genre-setting.md
 memory/character-memory.md
 memory/plot-memory.md
+knowledge/format-specs/character-setting.md
+knowledge/character-craft/decision-engine.md
 ```
+
+涉及关系线或群像时，额外读取 `knowledge/character-craft/relationship-arcs.md`。
 
 ## 适用阶段
 
@@ -45,4 +49,3 @@ revision 发现人物逻辑冲突
 2. 不得为了制造冲突强行改变人物性格。
 3. 不得替代 `writer` 写正文。
 4. 不得直接写入 `settings/` 或 `memory/`。
-

@@ -33,6 +33,9 @@ memory/style-memory.md
 memory/foreshadowing-memory.md
 memory/unresolved-threads.md
 memory/reader-feedback.md
+memory/timeline.md
+memory/character-state-ledger.md
+memory/promise-ledger.md
 memory/README.md
 ```
 
@@ -179,7 +182,7 @@ retention:
   追读检查阶段。用于检查爽点密度、疲劳点、读者期待和章末钩子。
 
 archive:
-  归档阶段。用于保存定稿章节、更新记忆、推进到下一章。
+  归档阶段。质量门禁通过后，用于保存定稿章节、更新记忆、推进到下一章。
 
 paused:
   暂停阶段。用于目标不明确、用户暂停、信息不足或存在阻塞。
@@ -224,6 +227,7 @@ archive -> retention
 2. 没有章节细纲时直接写正文。
 3. 用户未确认关键设定时进入正式大纲或正文。
 4. archive 未更新记忆就推进下一章。
+5. 质量门禁存在阻断项时进入或完成 archive。
 ```
 
 ---
@@ -253,7 +257,8 @@ retention:
   已有可读章节版本，且需要读者视角检查。
 
 archive:
-  当前章节已被用户接受，准备归档和更新记忆。
+  当前章节已被用户接受，归档质量报告存在且阻断项为零，准备归档和更新记忆。
+  正文已归档但记忆更新建议尚未确认时，继续停留在 archive，不得推进章节号。
 
 paused:
   用户暂停、目标不明确、缺少关键信息或状态损坏。
@@ -302,6 +307,9 @@ next_action
 6. 新增悬念或待解决线索 -> memory/unresolved-threads.md
 7. 出现追读风险、爽点不足或疲劳点 -> memory/reader-feedback.md
 8. 记忆写入格式或职责不清 -> memory/README.md
+9. 章节发生可排序事件 -> memory/timeline.md
+10. 人物位置、伤势、物品、能力、知情范围或目标变化 -> memory/character-state-ledger.md
+11. 新增、推进、回收或放弃剧情承诺 -> memory/promise-ledger.md
 ```
 
 禁止只在聊天中记住这些信息。凡是影响后续创作的内容，都必须写入项目文件。

@@ -9,7 +9,7 @@ from pathlib import Path
 import sys
 
 
-SKILL_VERSION = "0.8.0"
+SKILL_VERSION = "1.0.0"
 
 DIRECTORIES = [
     "settings/character-setting",
@@ -19,6 +19,7 @@ DIRECTORIES = [
     "archives",
     "memory",
     ".agent/task",
+    ".agent/reports",
 ]
 
 TEMPLATE_MAP = {
@@ -36,6 +37,9 @@ TEMPLATE_MAP = {
     "foreshadowing-memory.md.template": "memory/foreshadowing-memory.md",
     "unresolved-threads.md.template": "memory/unresolved-threads.md",
     "reader-feedback.md.template": "memory/reader-feedback.md",
+    "timeline.md.template": "memory/timeline.md",
+    "character-state-ledger.md.template": "memory/character-state-ledger.md",
+    "promise-ledger.md.template": "memory/promise-ledger.md",
 }
 
 

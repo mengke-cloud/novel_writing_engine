@@ -11,6 +11,7 @@
 ```text
 modules/00_state_management.md
 modules/02_outline.md
+modules/11_promise_tracking.md
 .agent/status.md
 story.md
 settings/world-setting.md
@@ -20,7 +21,13 @@ memory/world-memory.md
 memory/character-memory.md
 memory/plot-memory.md
 memory/unresolved-threads.md
+memory/promise-ledger.md
+knowledge/genre-guides/routing.md
+knowledge/plot-craft/conflict-and-escalation.md
+knowledge/plot-craft/twists-and-foreshadowing.md
 ```
+
+`outline` 阶段读取 `knowledge/format-specs/story-arc.md`；`volume` 阶段读取 `knowledge/format-specs/volume-outline.md`。主类型明确后只加载一份匹配的类型指南。
 
 ## 适用阶段
 
@@ -48,4 +55,3 @@ revision 发现结构问题
 2. 未确认的主线只能标记为 `【系统待确认】`。
 3. 不得直接写正文。
 4. 不得直接写入状态、设定或记忆文件。
-

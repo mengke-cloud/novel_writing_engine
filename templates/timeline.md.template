@@ -1,0 +1,28 @@
+# 故事时间线
+
+project_name: {{project_name}}
+engine_version: {{skill_version}}
+created_at: {{created_date}}
+
+## 使用规则
+
+每个已发生事件使用唯一 `EVT-四位数字` 标识。`story_time` 使用项目内部时间表达；无法确定时写 `unknown`，不得擅自补全。
+
+## 事件记录
+
+暂无。
+
+## 条目模板
+
+```text
+### EVT-0001
+chapter: 1
+story_time: 第一天 08:00
+duration: 30分钟
+location: 地点
+participants: 人物A, 人物B
+event: 已发生事件
+causes: EVT-0000
+consequences: 后续影响
+confirmation: 【用户已确认】
+```

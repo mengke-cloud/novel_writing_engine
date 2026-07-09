@@ -1,0 +1,25 @@
+# 人物状态台账
+
+project_name: {{project_name}}
+engine_version: {{skill_version}}
+created_at: {{created_date}}
+
+## 当前状态
+
+暂无。
+
+## 条目模板
+
+```text
+### CHAR-人物名
+chapter: 1
+location: 当前地点
+physical_state: 身体、伤势和疲劳
+emotional_state: 当前主要情绪
+inventory: 持有的关键物品
+abilities: 已获得且可使用的能力
+knows: 已知的关键信息
+relationships: 已变化的关键关系
+current_goal: 当前目标
+confirmation: 【用户已确认】
+```

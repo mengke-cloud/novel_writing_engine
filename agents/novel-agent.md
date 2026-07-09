@@ -10,7 +10,11 @@
 2. 读取 `.agent/status.md`。
 3. 根据 `phase` 判断下一步。
 4. 调用合适的 `modules/` 工作流。
-5. 维护任务边界和状态更新要求。
+5. 按任务路由 `knowledge/`，避免全库加载。
+6. 调用 `modules/12_context_assembly.md` 生成任务上下文包。
+7. 维护任务边界和状态更新要求。
+
+用户要求统计章节长度、人物出场、承诺回收率或质量趋势时，调用 `modules/17_analytics.md` 和 `scripts/analyze_project.py`；分析任务不推进写作阶段。
 
 它不直接替代所有模块写作。它的核心职责是调度、确认、分派和收口。
 
@@ -30,7 +34,7 @@ scripts/detect_project.py <project-path>
 skill_root -> 提醒用户切换到小说项目目录；禁止在 Skill 目录内初始化小说项目
 existing -> 读取 story.md、.agent/status.md、settings/、memory/，按 phase 继续
 new -> 询问用户是否初始化；确认后运行 scripts/init_project.py
-legacy -> 提示需要迁移；等待迁移能力启用或用户确认手动处理
+legacy -> 先运行 scripts/migrate_project.py --dry-run；用户确认后正式迁移
 needs_repair -> 判断损坏类型；只缺状态字段时运行 scripts/repair_status.py，缺入口文件或目录时先询问修复方案
 partial -> 询问用户修复、迁移或重新初始化
 ```
@@ -103,16 +107,24 @@ last_task
 
 阶段枚举、进入条件、回退条件和禁止跳步规则，必须遵守 `modules/00_state_management.md`。
 
+确定阶段和当前文件后，在分派 Agent 前运行：
+
+```text
+python scripts/context_builder.py <project-path> --phase <phase> --chapter-plan <可选章纲> --draft <可选正文> --output .agent/task/context.md
+```
+
+上下文包存在 `missing` 状态时，先判断该文件是否为当前阶段必需输入；必需输入缺失则停止分派并修复，非必需输入可记录后继续。
+
 ```text
 状态规范 -> modules/00_state_management.md
 setup -> agents/worldbuilder.md + agents/character-designer.md
 outline -> agents/outline-planner.md
 volume -> agents/outline-planner.md
-chapter -> agents/chapter-planner.md
-draft -> agents/writer.md
-revision -> agents/revision-editor.md + agents/anti-ai-editor.md
-retention -> agents/reader-reviewer.md
-archive -> agents/updater.md 更新 .agent/status.md 与 memory/
+chapter -> agents/chapter-planner.md + modules/10_continuity.md + modules/11_promise_tracking.md
+draft -> agents/writer.md + modules/10_continuity.md
+revision -> agents/revision-editor.md + agents/anti-ai-editor.md + modules/10_continuity.md
+retention -> agents/reader-reviewer.md + modules/09_quality_gate.md + modules/11_promise_tracking.md
+archive -> modules/13_archive_workflow.md；归档后 agents/updater.md 写入用户确认的 memory/
 paused -> 询问用户恢复目标或下一步动作
 ```
 
@@ -122,13 +134,30 @@ paused -> 询问用户恢复目标或下一步动作
 worldbuilder -> modules/01_worldbuilding.md
 character-designer -> modules/03_character.md
 outline-planner -> modules/02_outline.md
-chapter-planner -> modules/04_chapter_design.md + modules/07_reader_retention.md
-writer -> modules/05_prose_writing.md + modules/08_anti_ai_style.md
-revision-editor -> modules/06_revision.md + modules/08_anti_ai_style.md
+chapter-planner -> modules/04_chapter_design.md + modules/07_reader_retention.md + modules/10_continuity.md + modules/11_promise_tracking.md
+writer -> modules/05_prose_writing.md + modules/08_anti_ai_style.md + modules/10_continuity.md
+revision-editor -> modules/06_revision.md + modules/08_anti_ai_style.md + modules/10_continuity.md
 anti-ai-editor -> modules/08_anti_ai_style.md
-reader-reviewer -> modules/07_reader_retention.md
+reader-reviewer -> modules/07_reader_retention.md + modules/09_quality_gate.md
 updater -> modules/00_state_management.md
 ```
+
+大纲和分卷涉及伏笔或悬念时加载 `modules/11_promise_tracking.md`。归档必须同时执行 `modules/10_continuity.md` 和 `modules/11_promise_tracking.md`。
+
+知识库路由以 `knowledge/README.md` 为准。总调度只传递当前任务需要的知识文件：
+
+```text
+setup -> 世界观/人物格式 + 匹配的类型指南
+outline -> 主线格式 + 情节知识 + 匹配的类型指南
+volume -> 卷纲格式 + 冲突/伏笔知识
+chapter -> 章纲格式 + 场景/钩子知识
+draft -> 正文格式 + 通用去 AI 化 + 匹配的场景知识
+revision -> 章节质量检查 + 问题对应知识
+retention -> 章节质量检查 + 钩子与兑现
+archive -> 一致性检查 + 承诺生命周期检查 + 质量门禁
+```
+
+禁止一次性加载整个 `knowledge/`；类型指南必须先经过 `knowledge/genre-guides/routing.md` 匹配。
 
 ## 阶段进入条件
 
@@ -155,7 +184,7 @@ retention:
   已有章节内容，准备检查追读、爽点、疲劳点和章末钩子。
 
 archive:
-  当前章节已确认完成，准备归档并更新记忆。
+  当前章节已确认完成，且归档质量门禁无阻断项，准备归档并更新记忆。
 
 paused:
   用户暂停、目标不明确或存在阻塞。
@@ -201,6 +230,8 @@ paused:
 
 如果缺少更新对象或更新内容，不得调用 `updater`。
 
+旧项目迁移遵守 `modules/16_migration.md`。迁移前必须展示预览，正式迁移后必须读取 `.agent/migration-report.md`，验证通过且用户确认迁移结果后才能继续创作。
+
 职责边界：
 
 ```text
@@ -218,6 +249,14 @@ updater -> 写入 .agent/status.md、settings/、memory/
 
 正文草稿由 `writer` 输出，但暂不自动归档。章节细纲由 `chapter-planner` 输出，主线与分卷规划由 `outline-planner` 输出。需要写入状态、设定或记忆时，统一交给 `updater`。
 
+进入 `archive` 后必须按 `modules/13_archive_workflow.md` 运行：
+
+```text
+python scripts/archive_chapter.py <project-path> --chapter-plan <章纲路径> --draft <正文路径>
+```
+
+脚本会重新执行质量门禁。归档完成后必须停留在 `archive`，等待用户确认记忆更新建议；`updater` 写入确认内容后才能进入下一章。
+
 ## 强制规则
 
 1. 未经用户确认的关键设定只能标记为 `【系统待确认】`。
@@ -228,6 +267,7 @@ updater -> 写入 .agent/status.md、settings/、memory/
 6. `.agent/status.md` 是项目状态源，不得用口头记忆替代。
 7. 如果用户只要求讨论方案，不得擅自改项目文件。
 8. 如果项目结构损坏，先修复结构，再进入创作任务。
+9. 质量门禁存在阻断项时不得进入或完成 `archive`。
 
 ## 输出要求
 

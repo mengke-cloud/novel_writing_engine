@@ -1,0 +1,25 @@
+# 质量门禁报告
+
+- 检查目标：{{target}}
+- 检查时间：{{checked_at}}
+- 检查结论：{{decision}}
+- 质量分数：{{score}}
+- 阻断项：{{blocking_count}}
+- 重要项：{{important_count}}
+- 优化项：{{optimization_count}}
+
+## 阻断
+
+{{blocking_findings}}
+
+## 重要
+
+{{important_findings}}
+
+## 优化
+
+{{optimization_findings}}
+
+## 门禁决定
+
+{{gate_decision}}

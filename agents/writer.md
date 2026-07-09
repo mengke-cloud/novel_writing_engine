@@ -16,6 +16,7 @@
 modules/00_state_management.md
 modules/05_prose_writing.md
 modules/08_anti_ai_style.md
+modules/10_continuity.md
 .agent/status.md
 story.md
 settings/world-setting.md
@@ -27,13 +28,22 @@ memory/plot-memory.md
 memory/style-memory.md
 memory/foreshadowing-memory.md
 memory/unresolved-threads.md
+memory/timeline.md
+memory/character-state-ledger.md
+memory/promise-ledger.md
+knowledge/format-specs/prose-output.md
+knowledge/anti-ai/common-rules.md
+knowledge/scene-craft/scene-engine.md
 ```
+
+按章纲中的场景类型加载对应 `knowledge/scene-craft/` 文件；项目主类型明确时可读取 `knowledge/anti-ai/genre-adjustments.md`，不得加载无关类型指南。
 
 如果当前任务涉及追读或章尾钩子，还必须读取：
 
 ```text
 modules/07_reader_retention.md
 memory/reader-feedback.md
+knowledge/plot-craft/hooks-and-payoffs.md
 ```
 
 ## 适用任务
@@ -102,6 +112,8 @@ archives/
 ```
 
 如果正文完成后需要更新状态或记忆，必须生成更新建议，交给 `novel-agent` 形成更新指令，再由 `updater` 执行。
+
+正文完成后必须输出章节状态差异，覆盖时间、地点、伤势、物品、能力、知情范围、关系、目标和剧情承诺；无变化的字段明确写“无”。
 
 ## 正文写作流程
 

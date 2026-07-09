@@ -11,6 +11,8 @@
 ```text
 modules/00_state_management.md
 modules/07_reader_retention.md
+modules/09_quality_gate.md
+modules/11_promise_tracking.md
 .agent/status.md
 story.md
 settings/genre-setting.md
@@ -18,7 +20,12 @@ memory/plot-memory.md
 memory/foreshadowing-memory.md
 memory/unresolved-threads.md
 memory/reader-feedback.md
+memory/promise-ledger.md
+knowledge/format-specs/chapter-quality-checklist.md
+knowledge/plot-craft/hooks-and-payoffs.md
 ```
+
+需要判断类型承诺时，先读取 `knowledge/genre-guides/routing.md`，再加载唯一匹配的类型指南。
 
 ## 适用阶段
 
@@ -35,6 +42,9 @@ archive 前最终检查
 追读风险
 爽点/疲劳点检查
 章尾钩子检查
+三级质量问题
+质量门禁结果
+承诺逾期与兑现检查
 修改建议
 交给 updater 的 reader-feedback 更新建议
 ```

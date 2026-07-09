@@ -17,7 +17,10 @@ settings/world-setting.md
 settings/genre-setting.md
 memory/world-memory.md
 memory/plot-memory.md
+knowledge/format-specs/world-setting.md
 ```
+
+项目主类型已经确认时，按 `knowledge/genre-guides/routing.md` 只加载匹配的类型指南。
 
 ## 适用阶段
 
@@ -45,4 +48,3 @@ draft 发现世界规则冲突
 3. 不得新增会推翻主线的大设定。
 4. 不得把待确认设定写成正式事实。
 5. 需要写入 `settings/` 或 `memory/` 时，交给 `novel-agent` 生成更新指令，再由 `updater` 执行。
-

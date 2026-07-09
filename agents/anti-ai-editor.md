@@ -14,7 +14,10 @@ modules/08_anti_ai_style.md
 .agent/status.md
 settings/writing-style.md
 memory/style-memory.md
+knowledge/anti-ai/common-rules.md
 ```
+
+项目主类型明确时，额外读取 `knowledge/anti-ai/genre-adjustments.md` 中匹配条目。
 
 ## 适用阶段
 
@@ -41,4 +44,3 @@ revision-editor 输出改稿后
 2. 不得把文字改得更华丽但失去推进。
 3. 不得直接写入项目文件。
 4. 用户要求保持原文或只改错别字时，必须降级处理强度。
-

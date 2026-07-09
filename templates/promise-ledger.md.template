@@ -1,0 +1,34 @@
+# 剧情承诺台账
+
+project_name: {{project_name}}
+engine_version: {{skill_version}}
+created_at: {{created_date}}
+
+## 活跃承诺
+
+暂无。
+
+## 已回收承诺
+
+暂无。
+
+## 放弃承诺
+
+暂无。
+
+## 条目模板
+
+```text
+### PRM-0001
+type: 伏笔
+summary: 承诺内容
+status: active
+introduced_chapter: 1
+last_advanced_chapter: 1
+due_chapter: 10
+resolved_chapter:
+source: 第1章正文
+payoff_requirement: 回收时必须回答或改变什么
+related_characters: 人物A
+confirmation: 【用户已确认】
+```

@@ -14,6 +14,8 @@
 
 ```text
 modules/00_state_management.md
+modules/10_continuity.md
+modules/11_promise_tracking.md
 .agent/status.md
 memory/README.md
 ```
@@ -38,6 +40,9 @@ memory/style-memory.md
 memory/foreshadowing-memory.md
 memory/unresolved-threads.md
 memory/reader-feedback.md
+memory/timeline.md
+memory/character-state-ledger.md
+memory/promise-ledger.md
 ```
 
 `updater` 不得写入：
@@ -101,6 +106,16 @@ blocked_reason
 5. 如果阻塞解除，必须清空 blocked_reason 或说明已解除。
 ```
 
+当更新任务涉及 `archive` 或从 `archive` 推进到下一章时，必须先读取 `.agent/reports/` 中当前章节质量报告。报告缺失、结论未通过或阻断项不为零时，拒绝归档更新，并要求回退到 `revision`。
+
+当 `current_task` 为 `confirm_archive_updates_chapter_<N>` 时：
+
+1. 读取对应 `.agent/task/chapter-<N>-archive-update.md`。
+2. 只写入用户已确认的时间线、人物、剧情、伏笔和承诺变化。
+3. 写入完成后将 `current_chapter` 更新为 `N+1`。
+4. 将 `phase` 与 `current_phase` 更新为 `chapter`。
+5. 将 `current_task` 更新为 `design_chapter_<N+1>`，并清空阻塞原因。
+
 ## 设定更新任务
 
 当更新 `settings/` 时，必须遵守：
@@ -125,6 +140,9 @@ blocked_reason
 新增或回收伏笔 -> memory/foreshadowing-memory.md
 未解决悬念、待回收事项 -> memory/unresolved-threads.md
 追读风险、爽点不足、疲劳点 -> memory/reader-feedback.md
+已发生事件、时间、地点、参与者、因果 -> memory/timeline.md
+人物位置、伤势、物品、能力、知情范围、目标 -> memory/character-state-ledger.md
+伏笔、悬念、钩子和剧情承诺生命周期 -> memory/promise-ledger.md
 ```
 
 记忆文件必须记录：
@@ -185,3 +203,4 @@ blocked_reason
 4. 禁止只在聊天中记录会影响后续创作的信息。
 5. 禁止在项目结构损坏时继续写入设定或记忆。
 6. 禁止覆盖用户已确认设定。
+7. 禁止在归档质量门禁未通过时推进章节。
